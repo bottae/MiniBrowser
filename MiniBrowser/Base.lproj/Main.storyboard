@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3ag-aH-Peb">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,12 +8,13 @@
         <!--View Controller-->
         <scene sceneID="bdN-7i-B78">
             <objects>
-                <viewController id="3ag-aH-Peb" sceneMemberID="viewController">
+                <viewController id="3ag-aH-Peb" customClass="ViewController" customModule="MiniBrowser" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3cg-vD-tti"/>
                         <viewControllerLayoutGuide type="bottom" id="eEk-h9-pjN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9XQ-cY-pyH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dAn-VY-AQE">
@@ -27,26 +28,48 @@
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="20" width="414" height="29"/>
                                 </variation>
+                                <connections>
+                                    <action selector="bookMarkAction:" destination="3ag-aH-Peb" eventType="valueChanged" id="gVa-Zs-bHS"/>
+                                </connections>
                             </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f1w-D6-tMr">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="URL" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="f1w-D6-tMr">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="49" width="414" height="30"/>
                                 </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="3ag-aH-Peb" id="wry-q9-Sr3"/>
+                                </connections>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RvQ-kP-W2Z">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Oxg-LB-uRU"/>
-                                    <barButtonItem systemItem="rewind" id="wpE-ca-M8y"/>
+                                    <barButtonItem systemItem="rewind" id="wpE-ca-M8y">
+                                        <connections>
+                                            <action selector="goBack" destination="A4R-za-34M" id="lyV-yl-J6S"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="uJi-KI-4rc"/>
-                                    <barButtonItem systemItem="fastForward" id="RE7-hf-oZn"/>
+                                    <barButtonItem systemItem="fastForward" id="RE7-hf-oZn">
+                                        <connections>
+                                            <action selector="goForward" destination="A4R-za-34M" id="M5N-YF-0LW"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="AO7-8B-mpY"/>
-                                    <barButtonItem systemItem="stop" id="pFw-qH-ZMa"/>
+                                    <barButtonItem systemItem="stop" id="pFw-qH-ZMa">
+                                        <connections>
+                                            <action selector="stopLoading" destination="A4R-za-34M" id="YXA-XU-KxY"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="cze-Jc-gQy"/>
-                                    <barButtonItem systemItem="refresh" id="Dke-lI-Iln"/>
+                                    <barButtonItem systemItem="refresh" id="Dke-lI-Iln">
+                                        <connections>
+                                            <action selector="reload" destination="A4R-za-34M" id="VE2-Kj-psf"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="0e8-9M-ZRl"/>
                                 </items>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
@@ -59,7 +82,17 @@
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="81" width="414" height="611"/>
                                 </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="3ag-aH-Peb" id="mdW-vA-jDI"/>
+                                </connections>
                             </webView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nbX-2P-6tX">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <color key="color" red="1" green="0.75717241822307302" blue="0.45188723595001079" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="189" y="349" width="37" height="37"/>
+                                </variation>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -68,6 +101,7 @@
                                 <exclude reference="f1w-D6-tMr"/>
                                 <exclude reference="RvQ-kP-W2Z"/>
                                 <exclude reference="A4R-za-34M"/>
+                                <exclude reference="nbX-2P-6tX"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -76,14 +110,21 @@
                                 <include reference="f1w-D6-tMr"/>
                                 <include reference="RvQ-kP-W2Z"/>
                                 <include reference="A4R-za-34M"/>
+                                <include reference="nbX-2P-6tX"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="bookMarkSegmentedControl" destination="dAn-VY-AQE" id="F2t-h4-PVv"/>
+                        <outlet property="mainWebView" destination="A4R-za-34M" id="IwB-bl-qCc"/>
+                        <outlet property="spinningActivityIndicatorView" destination="nbX-2P-6tX" id="ueT-zh-u8c"/>
+                        <outlet property="urlTextField" destination="f1w-D6-tMr" id="0To-QZ-QER"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qPz-vZ-2v8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-31.5" y="279.75"/>
+            <point key="canvasLocation" x="40.5" y="373.5"/>
         </scene>
     </scenes>
 </document>
